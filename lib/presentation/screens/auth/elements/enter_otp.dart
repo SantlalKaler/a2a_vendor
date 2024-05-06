@@ -6,7 +6,7 @@ import 'package:timer_count_down/timer_count_down.dart';
 
 import '../../../controller/auth_controller.dart';
 import '../../../widgets/circular_loadings.dart';
-import '../../dashboard/dashboard.dart';
+import '../../../widgets/custom_snackbar.dart';
 
 class EnterOtpWidget extends StatelessWidget {
   const EnterOtpWidget({super.key});
@@ -83,12 +83,12 @@ class EnterOtpWidget extends StatelessWidget {
             ),
             ElevatedButton(
               onPressed: () async {
-                Get.to(const DashboardScreen());
-               /* if (authController.otpController.text.length < 6) {
+                if (authController.otpController.text.length < 6) {
                   CustomSnackBar.showSnackBar("Enter Valid OTP");
                 } else {
+
                   authController.verifyOtp();
-                }*/
+                }
               },
               child: authController.isLoading.isTrue
                   ? circularloadingWhiteSmall()

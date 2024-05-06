@@ -85,6 +85,9 @@ class LightTheme {
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.grey.shade300),
         ),
+        disabledBorder: OutlineInputBorder(
+          borderSide: BorderSide(color: Colors.grey.shade300),
+        ),
         focusedErrorBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.grey.shade300),
         ),
@@ -93,6 +96,28 @@ class LightTheme {
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.red.shade600),
+        ),
+      ),
+      dropdownMenuTheme: DropdownMenuThemeData(
+        inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: Colors.grey.shade100,
+          labelStyle:
+          GoogleFonts.roboto(color: Colors.grey.shade600, fontSize: 13),
+          hintStyle: GoogleFonts.lato(fontSize: 13),
+          contentPadding: const EdgeInsets.all(15),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey.shade300),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.grey.shade300),
+          ),
+          errorBorder: const OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.red),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: Colors.red.shade600),
+          ),
         ),
       ),
       checkboxTheme: CheckboxThemeData(

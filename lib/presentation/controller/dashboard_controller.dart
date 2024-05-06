@@ -8,6 +8,8 @@ class DashboardController extends GetxController {
     DashboardItem(
         "My Orders", ImageConstants.category4, DashboardItemId.myOrders),
     DashboardItem(
+        "My Products", ImageConstants.myProduct, DashboardItemId.myProducts),
+    DashboardItem(
         "About T2P", ImageConstants.aboutUs, DashboardItemId.about),
   ];
 }
@@ -27,6 +29,7 @@ class DashboardItem {
 enum DashboardItemId {
   myProfile,
   myOrders,
+  myProducts,
   about,
 }
 

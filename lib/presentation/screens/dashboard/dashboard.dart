@@ -1,14 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
+import 'package:t2p_vendor/presentation/controller/user_controller.dart';
 import 'package:t2p_vendor/presentation/screens/auth/auth_screen.dart';
+import 'package:t2p_vendor/presentation/screens/profile/edit_profile.dart';
 
 import '../../constants/dimens_constants.dart';
 import '../../controller/dashboard_controller.dart';
 import '../../dialogs/default_dialog.dart';
 import '../about_screen.dart';
 import '../order/order_list.dart';
-import '../profile/my_profile.dart';
+import '../products/my_product_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -20,6 +22,7 @@ class DashboardScreen extends StatefulWidget {
 class _DashboardScreenState extends State<DashboardScreen>
     with SingleTickerProviderStateMixin {
   DashboardController controller = Get.find();
+  UserController userController = Get.find();
   late AnimationController animationController;
   late List<Animation<Offset>> slideAnimations;
 
@@ -45,7 +48,7 @@ class _DashboardScreenState extends State<DashboardScreen>
         appBar: AppBar(
             elevation: 0,
             leading: const SizedBox.shrink(),
-            title: const Text("Hello"),
+            title: Text("Hello ${userController.shop?.fullName}"),
             centerTitle: true,
             actions: [
               IconButton(
@@ -92,9 +95,11 @@ class _DashboardScreenState extends State<DashboardScreen>
                                 case DashboardItemId.myOrders:
                                   Get.to(() => const OrderList());
                                 case DashboardItemId.myProfile:
-                                  Get.to(() => const MyProfileScreen());
+                                  Get.to(() => const EditProfileScreen());
                                 case DashboardItemId.about:
                                   Get.to(() => const AboutScreen());
+                                case DashboardItemId.myProducts:
+                                  Get.to(() => const MyProductScreen());
                               }
                             },
                             child: singleGridItem(

@@ -7,6 +7,7 @@ import 'package:t2p_vendor/presentation/widgets/title_divider.dart';
 
 import '../../../controller/auth_controller.dart';
 import '../../../widgets/circular_loadings.dart';
+import '../../../widgets/custom_snackbar.dart';
 
 class EnterPhoneWidget extends StatelessWidget {
   const EnterPhoneWidget({super.key});
@@ -51,14 +52,13 @@ class EnterPhoneWidget extends StatelessWidget {
               onPressed: authController.isSendingOTP.isTrue
                   ? null
                   : () {
-                      authController.isOTPSent.value = true;
-                     /* if (authController.phoneController.value.text == '' ||
+                      if (authController.phoneController.value.text == '' ||
                           authController.phoneController.value.text.length <
                               10) {
                         CustomSnackBar.showSnackBar('Enter valid phone number');
                       } else {
                         authController.sendOtp();
-                      }*/
+                      }
                     },
               child: authController.isLoading.isTrue
                   ? circularloadingWhiteSmall()
