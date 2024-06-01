@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:t2p_vendor/domain/model/state.dart';
+import 'package:a2a_vendor/domain/model/state.dart';
 StateListResponse stateListResponseFromJson(String str) => StateListResponse.fromJson(json.decode(str));
 String stateListResponseToJson(StateListResponse data) => json.encode(data.toJson());
 class StateListResponse {

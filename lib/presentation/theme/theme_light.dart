@@ -1,44 +1,73 @@
- import 'package:flutter/material.dart';
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+
+Color get primaryColor => const Color(0xFF076CA3);
+
+Color get primaryColorDark => const Color(0xFF0c3c8c);
+
+Color get primaryColorLight => Colors.red.shade200;
+
+Color get scaffoldBackgroundColor => Colors.blueGrey.shade50;
+
+Color get greenColor => const Color(0xFF25D366);
+
+Color get disabledColor => Colors.grey.shade400;
+
+MaterialColor get primaryColor1 =>
+    MaterialColor(0xFF0c3c8c, color);
+
+Map<int, Color> color =
+{
+  50: const Color(0xFF0c3c8c),
+  100: const Color(0xFF0c3c8c),
+  200: const Color(0xFF0c3c8c),
+  300: const Color(0xFF0c3c8c),
+  400: const Color(0xFF0c3c8c),
+  500: const Color(0xFF0c3c8c),
+  600: const Color(0xFF0c3c8c),
+  700: const Color(0xFF0c3c8c),
+  800: const Color(0xFF0c3c8c),
+  900: const Color(0xFF0c3c8c),
+};
 
 class LightTheme {
   static getTheme() {
     return ThemeData(
       useMaterial3: false,
       brightness: Brightness.light,
-      primarySwatch: Colors.red,
+      primarySwatch: primaryColor1,
       scaffoldBackgroundColor: Colors.blueGrey.shade50,
-      primaryColor: Colors.red.shade800,
-      primaryColorDark: Colors.red.shade900,
-      primaryColorLight: Colors.red.shade300,
-      primaryIconTheme: IconThemeData(color: Colors.red.shade700),
+      primaryColor: primaryColor1.shade800,
+      primaryColorDark: primaryColor1.shade900,
+      primaryColorLight: primaryColor1.shade300,
+      primaryIconTheme: IconThemeData(color: primaryColor1.shade700),
       iconTheme: const IconThemeData(color: Colors.black87),
       appBarTheme: AppBarTheme(
-          backgroundColor: Colors.red.shade900,
+          backgroundColor: primaryColor1.shade900,
           iconTheme: IconThemeData(color: Colors.blueGrey.shade50)),
       cardColor: Colors.grey.shade50,
       cardTheme: CardTheme(
           color: Colors.grey.shade50,
           elevation: 2,
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(12))),
       chipTheme: ChipThemeData(
-          selectedColor: Colors.red.shade800,
+          selectedColor: primaryColor1.shade800,
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
           backgroundColor: Colors.blueGrey.shade100,
           shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(8))),
       textTheme: TextTheme(
-       
           labelMedium: GoogleFonts.oswald(
               fontSize: 14, color: const Color(0xFF725B2E), letterSpacing: 1),
           labelSmall: GoogleFonts.oswald(
               fontSize: 14, color: Colors.black87, letterSpacing: 1),
           bodyLarge:
-              GoogleFonts.lato(color: Colors.grey.shade600, fontSize: 14),
+          GoogleFonts.lato(color: Colors.grey.shade600, fontSize: 14),
           bodyMedium:
-              GoogleFonts.roboto(color: Colors.blueGrey.shade600, fontSize: 14),
+          GoogleFonts.roboto(color: Colors.blueGrey.shade600, fontSize: 14),
           bodySmall: GoogleFonts.poppins(
               color: Colors.blueGrey.shade500, fontSize: 11),
           titleLarge: GoogleFonts.lato(
@@ -53,39 +82,38 @@ class LightTheme {
             minimumSize: const Size(double.infinity, 40),
             shape: const RoundedRectangleBorder(
                 borderRadius: BorderRadius.all(Radius.circular(12))),
-            side: const BorderSide(
-              color: Colors.red,
+            side: BorderSide(
+              color: primaryColor1,
             )),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
           style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.resolveWith((states) {
-                if (states.contains(MaterialState.pressed)) {
-                  return Colors.red; // Color when the button is pressed
+              backgroundColor: WidgetStateProperty.resolveWith((states) {
+                if (states.contains(WidgetState.pressed)) {
+                  return primaryColor1; // Color when the button is pressed
                 }
-                if (states.contains(MaterialState.disabled)) {
+                if (states.contains(WidgetState.disabled)) {
                   return Colors.grey.shade400;
                 }
-                return Theme.of(Get.context!).primaryColor; // Default color
+                return Theme
+                    .of(Get.context!)
+                    .primaryColor; // Default color
               }),
-              shape: const MaterialStatePropertyAll(RoundedRectangleBorder(
+              shape: const WidgetStatePropertyAll(RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(12)))),
               minimumSize:
-                  const MaterialStatePropertyAll(Size(double.infinity, 40)))),
+              const MaterialStatePropertyAll(Size(double.infinity, 40)))),
       textSelectionTheme: TextSelectionThemeData(
-        cursorColor: Colors.red.shade700,
+        cursorColor: primaryColor1.shade700,
       ),
       inputDecorationTheme: InputDecorationTheme(
         filled: true,
         fillColor: Colors.grey.shade100,
         labelStyle:
-            GoogleFonts.roboto(color: Colors.grey.shade600, fontSize: 13),
+        GoogleFonts.roboto(color: Colors.grey.shade600, fontSize: 13),
         hintStyle: GoogleFonts.lato(fontSize: 13),
         contentPadding: const EdgeInsets.all(15),
         enabledBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.grey.shade300),
-        ),
-        disabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: Colors.grey.shade300),
         ),
         focusedErrorBorder: OutlineInputBorder(
@@ -95,29 +123,7 @@ class LightTheme {
           borderSide: BorderSide(color: Colors.red),
         ),
         focusedBorder: OutlineInputBorder(
-          borderSide: BorderSide(color: Colors.red.shade600),
-        ),
-      ),
-      dropdownMenuTheme: DropdownMenuThemeData(
-        inputDecorationTheme: InputDecorationTheme(
-          filled: true,
-          fillColor: Colors.grey.shade100,
-          labelStyle:
-          GoogleFonts.roboto(color: Colors.grey.shade600, fontSize: 13),
-          hintStyle: GoogleFonts.lato(fontSize: 13),
-          contentPadding: const EdgeInsets.all(15),
-          enabledBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey.shade300),
-          ),
-          focusedErrorBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.grey.shade300),
-          ),
-          errorBorder: const OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.red),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderSide: BorderSide(color: Colors.red.shade600),
-          ),
+          borderSide: BorderSide(color: primaryColor1.shade600),
         ),
       ),
       checkboxTheme: CheckboxThemeData(
@@ -131,7 +137,9 @@ class LightTheme {
       drawerTheme: DrawerThemeData(backgroundColor: Colors.blueGrey.shade50),
       dialogTheme: DialogTheme(
           contentTextStyle:
-              GoogleFonts.poppins(color: Colors.grey.shade700, fontSize: 13),shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20))),
+          GoogleFonts.poppins(color: Colors.grey.shade700, fontSize: 13),
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20))),
       listTileTheme: ListTileThemeData(
         titleTextStyle: GoogleFonts.lato(
             fontWeight: FontWeight.w600, fontSize: 14.5, color: Colors.black87),

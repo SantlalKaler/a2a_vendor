@@ -6,9 +6,10 @@ import 'package:flutter/widgets.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:t2p_vendor/domain/model/upload_image.dart';
-import 'package:t2p_vendor/presentation/constants/image_constants.dart';
-import 'package:t2p_vendor/presentation/controller/user_controller.dart';
+import 'package:a2a_vendor/domain/model/upload_image.dart';
+import 'package:a2a_vendor/presentation/constants/image_constants.dart';
+import 'package:a2a_vendor/presentation/controller/user_controller.dart';
+import 'package:a2a_vendor/presentation/widgets/custom_snackbar.dart';
 
 import '../../../../domain/model/menu.dart';
 import '../../../constants/dimens_constants.dart';
@@ -23,85 +24,88 @@ class MenuInfo extends StatelessWidget {
     UserController userController = Get.find();
     List<Menu>? olderImages = userController.shop?.menu;
     return GetBuilder(
-      init: ProfileController(),
-      builder: (controller) {
-        return AppContainer(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              GestureDetector(
-                  onTap: () async {
-                    await showImagePickerOptions(context);
-                  },
-                  child: Image.asset(ImageConstants.addPhoto)),
-              Gap(DimensConstants.spaceBetweenViews),
+        init: ProfileController(),
+        builder: (controller) {
+          return AppContainer(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                GestureDetector(
+                    onTap: () async {
+                      await showImagePickerOptions(context);
+                    },
+                    child: Image.asset(ImageConstants.addPhoto)),
+                Gap(DimensConstants.spaceBetweenViews),
 
-              // new image that user choose from gallery/camera
-              if (controller.uploadImages.isNotEmpty) const Text("New Images"),
-              Gap(DimensConstants.spaceBetweenViews),
-              if (controller.uploadImages.isNotEmpty)
-                GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: controller.uploadImages.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisSpacing: DimensConstants.spaceBetweenViews,
-                      mainAxisSpacing: DimensConstants.spaceBetweenViews,
-                      childAspectRatio: 1,
-                      crossAxisCount: 3),
-                  itemBuilder: (context, index) {
-                    var item = controller.uploadImages[index];
-                    return Stack(
-                      children: [
-                        Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              image: DecorationImage(
-                                  image: FileImage(File(item.path)))),
-                        ),
-                        Positioned(
-                            top: 0,
-                            right: 0,
-                            child: IconButton(
-                                onPressed: () {
-                                  controller.removeUploadImageData(index);
-                                },
-                                icon: const Icon(Icons.delete, color: Colors.redAccent,)))
-                      ],
-                    );
-                  },
-                ),
+                // new image that user choose from gallery/camera
+                if (controller.uploadImages.isNotEmpty)
+                  const Text("New Images"),
+                Gap(DimensConstants.spaceBetweenViews),
+                if (controller.uploadImages.isNotEmpty)
+                  GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: controller.uploadImages.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisSpacing: DimensConstants.spaceBetweenViews,
+                        mainAxisSpacing: DimensConstants.spaceBetweenViews,
+                        childAspectRatio: 1,
+                        crossAxisCount: 3),
+                    itemBuilder: (context, index) {
+                      var item = controller.uploadImages[index];
+                      return Stack(
+                        children: [
+                          Container(
+                            decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(20),
+                                image: DecorationImage(
+                                    image: FileImage(File(item.path)))),
+                          ),
+                          Positioned(
+                              top: 0,
+                              right: 0,
+                              child: IconButton(
+                                  onPressed: () {
+                                    controller.removeUploadImageData(index);
+                                  },
+                                  icon: const Icon(
+                                    Icons.delete,
+                                    color: Colors.redAccent,
+                                  )))
+                        ],
+                      );
+                    },
+                  ),
 
-              // old image that user already uploaded
-              Gap(DimensConstants.spaceBetweenViews),
-              if (olderImages != null && olderImages.isNotEmpty)
-                const Text("Older Images"),
-              if (olderImages != null && olderImages.isNotEmpty)
-                GridView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: olderImages.length,
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisSpacing: DimensConstants.spaceBetweenViews,
-                      mainAxisSpacing: DimensConstants.spaceBetweenViews,
-                      childAspectRatio: 1,
-                      crossAxisCount: 3),
-                  itemBuilder: (context, index) {
-                    var item = olderImages[index];
-                    return Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          image:
-                              DecorationImage(image: NetworkImage(item.location!))),
-                    );
-                  },
-                )
-            ],
-          ),
-        );
-      }
-    );
+                // old image that user already uploaded
+                Gap(DimensConstants.spaceBetweenViews),
+                if (olderImages != null && olderImages.isNotEmpty)
+                  const Text("Older Images"),
+                if (olderImages != null && olderImages.isNotEmpty)
+                  GridView.builder(
+                    shrinkWrap: true,
+                    physics: const NeverScrollableScrollPhysics(),
+                    itemCount: olderImages.length,
+                    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisSpacing: DimensConstants.spaceBetweenViews,
+                        mainAxisSpacing: DimensConstants.spaceBetweenViews,
+                        childAspectRatio: 1,
+                        crossAxisCount: 3),
+                    itemBuilder: (context, index) {
+                      var item = olderImages[index];
+                      return Container(
+                        decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(20),
+                            image: DecorationImage(
+                                image: NetworkImage(item.location!))),
+                      );
+                    },
+                  )
+              ],
+            ),
+          );
+        });
   }
 
   showImagePickerOptions(BuildContext context) {
@@ -111,7 +115,7 @@ class MenuInfo extends StatelessWidget {
       context: context,
       builder: (context) {
         var imagePicker = ImagePicker();
-        return Container(
+        return SizedBox(
           height: 150,
           child: Column(
             children: [
@@ -119,9 +123,22 @@ class MenuInfo extends StatelessWidget {
                 onTap: () async {
                   XFile? file =
                       await imagePicker.pickImage(source: ImageSource.camera);
+                  Get.back();
                   if (file != null) {
-                    controller.addUploadImageData(
-                        UploadImage(name: file.name, path: file.path));
+                    File fileImg = File(file.path);
+                    int fileSizeInBytes =
+                        await fileImg.length(); // Get file size in bytes
+                    double fileSizeInKB =
+                        fileSizeInBytes / 1024; // Convert bytes to KB
+                    double fileSizeInMB = fileSizeInKB / 1024; //
+
+                    if (fileSizeInMB > 2) {
+                      CustomSnackBar.showSnackBar(
+                          "Selected file is too large (exceeds 2 MB). Please choose a smaller file.");
+                    } else {
+                      controller.addUploadImageData(
+                          UploadImage(name: file.name, path: file.path));
+                    }
                   }
                 },
                 child: const ListTile(
@@ -132,9 +149,22 @@ class MenuInfo extends StatelessWidget {
                 onTap: () async {
                   XFile? file =
                       await imagePicker.pickImage(source: ImageSource.gallery);
+                  //Get.back();
                   if (file != null) {
-                    controller.addUploadImageData(
-                        UploadImage(name: file.name, path: file.path));
+                    File fileImg = File(file.path);
+                    int fileSizeInBytes =
+                        await fileImg.length(); // Get file size in bytes
+                    double fileSizeInKB =
+                        fileSizeInBytes / 1024; // Convert bytes to KB
+                    double fileSizeInMB = fileSizeInKB / 1024; //
+
+                    if (fileSizeInMB > 1) {
+                      CustomSnackBar.showSnackBar(
+                          "Selected file is too large (exceeds 2 MB). Please choose a smaller file.");
+                    } else {
+                      controller.addUploadImageData(
+                          UploadImage(name: file.name, path: file.path));
+                    }
                   }
                 },
                 child: const ListTile(

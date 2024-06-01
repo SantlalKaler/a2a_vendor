@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:t2p_vendor/presentation/constants/dimens_constants.dart';
+import 'package:a2a_vendor/presentation/constants/dimens_constants.dart';
 
 import '../constants/image_constants.dart';
 

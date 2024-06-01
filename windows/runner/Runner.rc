@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.tastes2plate.vendor.app" "\0"
-            VALUE "FileDescription", "t2p_vendor" "\0"
+            VALUE "CompanyName", "com.anything2anyplace.a2a.vendor" "\0"
+            VALUE "FileDescription", "a2a_vendor" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "t2p_vendor" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2024 com.tastes2plate.vendor.app. All rights reserved." "\0"
-            VALUE "OriginalFilename", "t2p_vendor.exe" "\0"
-            VALUE "ProductName", "t2p_vendor" "\0"
+            VALUE "InternalName", "a2a_vendor" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2024 com.anything2anyplace.a2a.vendor. All rights reserved." "\0"
+            VALUE "OriginalFilename", "a2a_vendor.exe" "\0"
+            VALUE "ProductName", "a2a_vendor" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END

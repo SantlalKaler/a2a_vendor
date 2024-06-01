@@ -1,4 +1,4 @@
-name: t2p_vendor
+name: a2a_vendor
 description: "A new Flutter project."
 
 publish_to: 'none'
@@ -29,6 +29,7 @@ dependencies:
   firebase_messaging: ^14.6.2
   firebase_analytics: ^10.4.5
   image_picker: ^1.1.1
+  go_router: ^14.1.3
 
 dev_dependencies:
   flutter_test:

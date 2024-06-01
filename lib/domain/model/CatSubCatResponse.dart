@@ -54,7 +54,7 @@ class CatSubCat {
       String? name, 
       String? description, 
       String? descriptionAfterContent, 
-      Parent? parent, 
+     // Parent? parent,
       String? file, 
       String? createdDate, 
       String? updateDate, 
@@ -71,7 +71,7 @@ class CatSubCat {
     _name = name;
     _description = description;
     _descriptionAfterContent = descriptionAfterContent;
-    _parent = parent;
+  //  _parent = parent;
     _file = file;
     _createdDate = createdDate;
     _updateDate = updateDate;
@@ -91,7 +91,7 @@ class CatSubCat {
     _name = json['name'];
     _description = json['description'];
     _descriptionAfterContent = json['description_after_content'];
-    _parent = json['parent'] != null ? Parent.fromJson(json['parent']) : null;
+   // _parent = json['parent'] != null ? Parent.fromJson(json['parent']) : null;
     _file = json['file'];
     _createdDate = json['created_date'];
     _updateDate = json['update_date'];
@@ -109,7 +109,7 @@ class CatSubCat {
   String? _name;
   String? _description;
   String? _descriptionAfterContent;
-  Parent? _parent;
+ // Parent? _parent;
   String? _file;
   String? _createdDate;
   String? _updateDate;
@@ -126,7 +126,7 @@ class CatSubCat {
 CatSubCat copyWith({  String? name,
   String? description,
   String? descriptionAfterContent,
-  Parent? parent,
+  //Parent? parent,
   String? file,
   String? createdDate,
   String? updateDate,
@@ -143,7 +143,7 @@ CatSubCat copyWith({  String? name,
 }) => CatSubCat(  name: name ?? _name,
   description: description ?? _description,
   descriptionAfterContent: descriptionAfterContent ?? _descriptionAfterContent,
-  parent: parent ?? _parent,
+ // parent: parent ?? _parent,
   file: file ?? _file,
   createdDate: createdDate ?? _createdDate,
   updateDate: updateDate ?? _updateDate,
@@ -161,7 +161,7 @@ CatSubCat copyWith({  String? name,
   String? get name => _name;
   String? get description => _description;
   String? get descriptionAfterContent => _descriptionAfterContent;
-  Parent? get parent => _parent;
+ // Parent? get parent => _parent;
   String? get file => _file;
   String? get createdDate => _createdDate;
   String? get updateDate => _updateDate;
@@ -181,9 +181,9 @@ CatSubCat copyWith({  String? name,
     map['name'] = _name;
     map['description'] = _description;
     map['description_after_content'] = _descriptionAfterContent;
-    if (_parent != null) {
+    /*if (_parent != null) {
       map['parent'] = _parent?.toJson();
-    }
+    }*/
     map['file'] = _file;
     map['created_date'] = _createdDate;
     map['update_date'] = _updateDate;

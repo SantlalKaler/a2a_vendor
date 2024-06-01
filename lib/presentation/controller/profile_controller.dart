@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:t2p_vendor/domain/model/ZipListResponse.dart';
-import 'package:t2p_vendor/domain/model/city.dart';
-import 'package:t2p_vendor/domain/model/state.dart';
-import 'package:t2p_vendor/domain/model/upload_image.dart';
-import 'package:t2p_vendor/presentation/controller/user_controller.dart';
+import 'package:a2a_vendor/domain/model/ZipListResponse.dart';
+import 'package:a2a_vendor/domain/model/city.dart';
+import 'package:a2a_vendor/domain/model/state.dart';
+import 'package:a2a_vendor/domain/model/upload_image.dart';
+import 'package:a2a_vendor/presentation/controller/user_controller.dart';
 
 import '../../data/api_services.dart';
 import '../../data/app_urls.dart';
@@ -87,6 +87,7 @@ class ProfileController extends GetxController {
     }
     if (shop.city?.isNotEmpty == true) {
       cityController.text = getCityNameFromId(shop.city ?? "");
+      getZipList();
     }
     pincodeController.text = shop.pincode ?? "";
     landmarkController.text = shop.landmark ?? "";
@@ -114,7 +115,6 @@ class ProfileController extends GetxController {
 
   getCityNameFromId(String id) {
     selectedCity = cities.firstWhere((element) => element.id == id).name!;
-    getZipList();
     return selectedCity;
   }
 
@@ -168,6 +168,7 @@ class ProfileController extends GetxController {
         "detail3": dish3DetailsController.text,
       });
 
+
       for (var image in uploadImages) {
         data.files.add(MapEntry(
             "upload",
@@ -175,7 +176,7 @@ class ProfileController extends GetxController {
                 filename: image.name)));
       }
 
-      var response = await apiService.post(AppUrls.shopGetProfile, data);
+      var response = await apiService.post(AppUrls.updateShop, data);
 
       if (response != null && response.data['status'] == 'success') {
         Get.back();

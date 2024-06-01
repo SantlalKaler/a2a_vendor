@@ -3,9 +3,10 @@ import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:t2p_vendor/presentation/widgets/title_divider.dart';
+import 'package:a2a_vendor/presentation/widgets/title_divider.dart';
 
 import '../../../controller/auth_controller.dart';
+import '../../../widgets/app_button.dart';
 import '../../../widgets/circular_loadings.dart';
 import '../../../widgets/custom_snackbar.dart';
 
@@ -48,7 +49,7 @@ class EnterPhoneWidget extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            ElevatedButton(
+            AppElevatedButton(
               onPressed: authController.isSendingOTP.isTrue
                   ? null
                   : () {

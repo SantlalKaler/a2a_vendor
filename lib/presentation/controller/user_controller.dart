@@ -1,6 +1,6 @@
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:t2p_vendor/domain/model/shop.dart';
+import 'package:a2a_vendor/domain/model/shop.dart';
 
 class UserController extends GetxController {
   var box = GetStorage();
@@ -8,6 +8,8 @@ class UserController extends GetxController {
   String get deviceToken => box.read(GetStorageKey.deviceToken) ?? "";
 
   String get shopId => shopFromJson(box.read(GetStorageKey.shop)).id ?? "";
+
+  bool get isLoggedIn => box.read(GetStorageKey.isLoggedIn) ?? false;
 
   Shop? get shop => shopFromJson(box.read(GetStorageKey.shop));
 
@@ -17,10 +19,17 @@ class UserController extends GetxController {
 
   saveShop(Shop shop) {
     box.write(GetStorageKey.shop, shopToJson(shop));
+    box.write(GetStorageKey.isLoggedIn, true);
+  }
+
+  clearShop() {
+    box.remove(GetStorageKey.shop);
+    box.remove(GetStorageKey.isLoggedIn);
   }
 }
 
 class GetStorageKey {
   static String deviceToken = "deviceToken";
   static String shop = "shop";
+  static String isLoggedIn = "isLoggedIn";
 }

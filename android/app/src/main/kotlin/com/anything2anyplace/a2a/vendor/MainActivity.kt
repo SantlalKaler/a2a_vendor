@@ -1,4 +1,4 @@
-package com.tastes2plate.vendor.app.t2p_vendor
+package com.anything2anyplace.a2a.vendor
 
 import io.flutter.embedding.android.FlutterActivity
 

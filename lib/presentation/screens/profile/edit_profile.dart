@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:t2p_vendor/presentation/controller/profile_controller.dart';
-import 'package:t2p_vendor/presentation/screens/profile/elements/shop_location_info.dart';
-import 'package:t2p_vendor/presentation/widgets/circular_loadings.dart';
+import 'package:a2a_vendor/presentation/controller/profile_controller.dart';
+import 'package:a2a_vendor/presentation/screens/profile/elements/shop_location_info.dart';
+import 'package:a2a_vendor/presentation/widgets/circular_loadings.dart';
 
 import '../../constants/dimens_constants.dart';
 import 'elements/bank_info.dart';

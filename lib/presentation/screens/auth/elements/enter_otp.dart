@@ -1,7 +1,9 @@
+import 'package:a2a_vendor/presentation/widgets/app_button.dart';
+import 'package:a2a_vendor/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import 'package:get/get.dart';
-import 'package:t2p_vendor/presentation/widgets/title_divider.dart';
+import 'package:a2a_vendor/presentation/widgets/title_divider.dart';
 import 'package:timer_count_down/timer_count_down.dart';
 
 import '../../../controller/auth_controller.dart';
@@ -36,8 +38,7 @@ class EnterOtpWidget extends StatelessWidget {
               height: 16,
             ),
             OtpTextField(
-              fieldWidth: 45,
-
+              fieldWidth: Responsive.isMobile(context) ? 45 : 60,
               numberOfFields: 6,
               filled: true,
               enabledBorderColor:
@@ -81,13 +82,12 @@ class EnterOtpWidget extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            ElevatedButton(
+            AppElevatedButton(
               onPressed: () async {
                 if (authController.otpController.text.length < 6) {
                   CustomSnackBar.showSnackBar("Enter Valid OTP");
                 } else {
-
-                  authController.verifyOtp();
+                  authController.verifyOtp(context);
                 }
               },
               child: authController.isLoading.isTrue

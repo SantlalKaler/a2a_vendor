@@ -1,9 +1,11 @@
+import 'package:a2a_vendor/presentation/routes/routes_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:t2p_vendor/presentation/controller/user_controller.dart';
-import 'package:t2p_vendor/presentation/screens/auth/auth_screen.dart';
-import 'package:t2p_vendor/presentation/screens/profile/edit_profile.dart';
+import 'package:a2a_vendor/presentation/controller/user_controller.dart';
+import 'package:a2a_vendor/presentation/screens/auth/auth_screen.dart';
+import 'package:a2a_vendor/presentation/screens/profile/edit_profile.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../constants/dimens_constants.dart';
 import '../../controller/dashboard_controller.dart';
@@ -92,14 +94,18 @@ class _DashboardScreenState extends State<DashboardScreen>
                             onTap: () {
                               switch (
                                   controller.vendorDashboardItems[index].id) {
-                                case DashboardItemId.myOrders:
-                                  Get.to(() => const OrderList());
                                 case DashboardItemId.myProfile:
-                                  Get.to(() => const EditProfileScreen());
-                                case DashboardItemId.about:
-                                  Get.to(() => const AboutScreen());
+                                  context.pushNamed(
+                                      RoutesConstants.myProfileScreen);
+                                case DashboardItemId.myOrders:
+                                  context
+                                      .pushNamed(RoutesConstants.myOrderScreen);
                                 case DashboardItemId.myProducts:
-                                  Get.to(() => const MyProductScreen());
+                                  context.pushNamed(
+                                      RoutesConstants.myProductScreen);
+                                case DashboardItemId.about:
+                                  context
+                                      .pushNamed(RoutesConstants.aboutUsScreen);
                               }
                             },
                             child: singleGridItem(

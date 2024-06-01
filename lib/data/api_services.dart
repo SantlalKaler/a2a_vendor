@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart' as getx;
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
-import 'package:t2p_vendor/data/app_urls.dart';
+import 'package:a2a_vendor/data/app_urls.dart';
 import '../presentation/controller/conectivity_controller.dart';
 import '../presentation/widgets/custom_snackbar.dart';
 

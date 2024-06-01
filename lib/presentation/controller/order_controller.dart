@@ -1,5 +1,5 @@
 import 'package:get/get.dart';
-import 'package:t2p_vendor/presentation/controller/user_controller.dart';
+import 'package:a2a_vendor/presentation/controller/user_controller.dart';
 
 import '../../data/api_services.dart';
 import '../../data/app_urls.dart';

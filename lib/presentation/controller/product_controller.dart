@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:t2p_vendor/data/status.dart';
-import 'package:t2p_vendor/domain/model/CatSubCatResponse.dart';
-import 'package:t2p_vendor/presentation/controller/user_controller.dart';
-import 'package:t2p_vendor/presentation/widgets/custom_snackbar.dart';
+import 'package:a2a_vendor/data/status.dart';
+import 'package:a2a_vendor/domain/model/CatSubCatResponse.dart';
+import 'package:a2a_vendor/presentation/controller/user_controller.dart';
+import 'package:a2a_vendor/presentation/widgets/custom_snackbar.dart';
 
 import '../../data/api_services.dart';
 import '../../data/app_urls.dart';
@@ -15,6 +14,8 @@ import '../../domain/model/ProductListResponse.dart';
 class ProductController extends GetxController {
   RxBool isLoading = false.obs;
   RxBool buttonLoading = false.obs;
+
+  Product? selectedProduct;
 
   setLoading() => isLoading.value = !isLoading.value;
 
@@ -37,8 +38,7 @@ class ProductController extends GetxController {
     try {
       setLoading();
       var data = {"shop": userController.shopId};
-      var response = await apiService.post(AppUrls.shopProductList, {},
-          hasQueryParam: true, queryParam: data);
+      var response = await apiService.post(AppUrls.shopProductList, data);
 
       if (response != null &&
           response.data['status'] == 'success' &&
@@ -73,7 +73,7 @@ class ProductController extends GetxController {
 
   Future addProduct() async {
     try {
-      setButtonLoading();
+      setLoading();
       var data = {
         "name": productName.text,
         "weight": productWeight.text,
@@ -92,32 +92,33 @@ class ProductController extends GetxController {
         clearData();
       }
     } finally {
-      setButtonLoading();
+      setLoading();
       update();
     }
   }
 
-  Future updateProduct(String productId) async {
+  Future updateProduct() async {
     try {
-      setButtonLoading();
+      setLoading();
       var data = {
         "name": productName.text,
         "weight": productWeight.text,
         "category": getCategoryId(),
         "sub_category": getSubCategoryId(),
         "description": productDescription.text,
-        "id": productId
+        "id": selectedProduct!.id
       };
 
-      var response = await apiService.post(AppUrls.addProduct, data);
+      var response = await apiService.post(AppUrls.updateProduct, data);
 
       CustomSnackBar.showSnackBar(response?.data['message']);
 
       if (response != null && response.data['status'] == 'success') {
         getProducts();
+        Get.back();
       }
     } finally {
-      setButtonLoading();
+      setLoading();
       update();
     }
   }
@@ -150,6 +151,10 @@ class ProductController extends GetxController {
           res.data['result'].isNotEmpty) {
         CatSubCatResponse catResponse = CatSubCatResponse.fromJson(res.data);
         subCategories.value = catResponse.catSubCats!;
+
+        if (selectedProduct != null) {
+          setData();
+        }
       }
     } finally {
       setLoading();
@@ -178,10 +183,10 @@ class ProductController extends GetxController {
   }
 
   setData() {
-    productName.clear();
-    productWeight.clear();
-    productCategory.clear();
-    productSubCategory.clear();
-    productDescription.clear();
+    productName.text = selectedProduct!.name ?? "";
+    productWeight.text = selectedProduct!.weight ?? "";
+    productCategory.text = selectedProduct!.category?.name ?? "";
+    productSubCategory.text = selectedProduct!.subCategory?.name ?? "";
+    productDescription.text = selectedProduct!.description ?? "";
   }
 }

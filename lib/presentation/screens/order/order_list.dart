@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:t2p_vendor/presentation/controller/order_controller.dart';
+import 'package:a2a_vendor/presentation/controller/order_controller.dart';
 
 import '../../constants/color_constant.dart';
 import '../../constants/dimens_constants.dart';

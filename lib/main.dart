@@ -1,33 +1,40 @@
+import 'package:a2a_vendor/presentation/constants/string_constants.dart';
+import 'package:a2a_vendor/presentation/controller/auth_controller.dart';
+import 'package:a2a_vendor/presentation/controller/conectivity_controller.dart';
+import 'package:a2a_vendor/presentation/controller/dashboard_controller.dart';
+import 'package:a2a_vendor/presentation/controller/order_controller.dart';
+import 'package:a2a_vendor/presentation/controller/product_controller.dart';
+import 'package:a2a_vendor/presentation/controller/profile_controller.dart';
+import 'package:a2a_vendor/presentation/controller/setting_controller.dart';
+import 'package:a2a_vendor/presentation/controller/user_controller.dart';
+import 'package:a2a_vendor/presentation/routes/routes_handler.dart';
+import 'package:a2a_vendor/presentation/theme/theme_light.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+//import 'package:firebase_analytics/firebase_analytics.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+//import 'package:firebase_crashlytics/firebase_crashlytics.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:t2p_vendor/presentation/constants/string_constants.dart';
-import 'package:t2p_vendor/presentation/controller/auth_controller.dart';
-import 'package:t2p_vendor/presentation/controller/conectivity_controller.dart';
-import 'package:t2p_vendor/presentation/controller/dashboard_controller.dart';
-import 'package:t2p_vendor/presentation/controller/order_controller.dart';
-import 'package:t2p_vendor/presentation/controller/product_controller.dart';
-import 'package:t2p_vendor/presentation/controller/profile_controller.dart';
-import 'package:t2p_vendor/presentation/controller/setting_controller.dart';
-import 'package:t2p_vendor/presentation/controller/user_controller.dart';
-import 'package:t2p_vendor/presentation/firebase_options.dart';
-import 'package:t2p_vendor/presentation/screens/splash_screen.dart';
-import 'package:t2p_vendor/presentation/theme/theme_light.dart';
 
-void main() async{
+import 'firebase_options.dart';
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await GetStorage.init();
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  //FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterError;
+  if (kReleaseMode) {
+    FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
+  }
   SystemChrome.setPreferredOrientations(
       [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
   runApp(const MyApp());
 }
 
 class MyApp extends StatefulWidget {
-
   const MyApp({super.key});
 
   @override
@@ -35,16 +42,26 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
+  static FirebaseAnalyticsObserver observer =
+      FirebaseAnalyticsObserver(analytics: analytics);
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return GetMaterialApp(
+    return GetMaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: StringConstants.appName,
       themeMode: ThemeMode.light,
       theme: LightTheme.getTheme(),
-      home: const SplashScreen(),
+      routerDelegate: MyRoutes().getMyRoutes(context).routerDelegate,
+      navigatorObservers: <NavigatorObserver>[observer],
+      backButtonDispatcher:
+          MyRoutes().getMyRoutes(context).backButtonDispatcher,
+      routeInformationParser:
+          MyRoutes().getMyRoutes(context).routeInformationParser,
+      routeInformationProvider:
+          MyRoutes().getMyRoutes(context).routeInformationProvider,
       initialBinding: InitialBindings(),
     );
   }

@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:t2p_vendor/presentation/constants/dimens_constants.dart';
-import 'package:t2p_vendor/presentation/controller/product_controller.dart';
-import 'package:t2p_vendor/presentation/controller/profile_controller.dart';
-import 'package:t2p_vendor/presentation/widgets/circular_loadings.dart';
-import 'package:t2p_vendor/presentation/widgets/custom_snackbar.dart';
+import 'package:a2a_vendor/presentation/constants/dimens_constants.dart';
+import 'package:a2a_vendor/presentation/controller/product_controller.dart';
+import 'package:a2a_vendor/presentation/controller/profile_controller.dart';
+import 'package:a2a_vendor/presentation/widgets/circular_loadings.dart';
+import 'package:a2a_vendor/presentation/widgets/custom_snackbar.dart';
+
+import '../../../domain/model/ProductListResponse.dart';
 
 class AddEditProductScreen extends StatefulWidget {
   const AddEditProductScreen({super.key});
@@ -30,7 +32,7 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
     ProductController controller = Get.find();
     return Scaffold(
       appBar: AppBar(
-          title: const Text("Add Product"),
+          title: Text("${controller.selectedProduct == null ? "Add": "Edit"} Product"),
           leading: IconButton(
               onPressed: () {
                 Get.back();
@@ -43,12 +45,16 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
               if (_formKey.currentState!.validate() &&
                   controller.productCategory.text.isNotEmpty &&
                   controller.productSubCategory.text.isNotEmpty) {
+                if(controller.selectedProduct == null){
                 controller.addProduct();
+                }else{
+                  controller.updateProduct();
+                }
               }else{
                 CustomSnackBar.showSnackBar("Fill all details");
               }
             },
-            child: controller.buttonLoading.isTrue
+            child: controller.isLoading.isTrue
                 ? circularloadingWhiteSmall()
                 : const Text("Submit"))),
       ),

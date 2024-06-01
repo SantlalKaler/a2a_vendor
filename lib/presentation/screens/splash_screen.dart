@@ -1,14 +1,15 @@
 import 'dart:async';
 
+import 'package:a2a_vendor/presentation/constants/image_constants.dart';
+//import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:t2p_vendor/presentation/constants/image_constants.dart';
-import 'package:t2p_vendor/presentation/screens/auth/auth_screen.dart';
-import 'package:t2p_vendor/presentation/screens/dashboard/dashboard.dart';
+import 'package:go_router/go_router.dart';
 
 import '../controller/user_controller.dart';
+import '../routes/routes_constants.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({super.key});
@@ -34,10 +35,10 @@ class _SplashScreenState extends State<SplashScreen> {
     _getToken();
 
     Timer(const Duration(milliseconds: 500), () {
-      if (userController.shop != null) {
-        Get.to(const DashboardScreen());
+      if (userController.isLoggedIn) {
+        context.pushReplacement(RoutesConstants.dashboardScreen);
       } else {
-        Get.to(const AuthScreen());
+        context.pushReplacement(RoutesConstants.authScreen);
       }
     });
     super.initState();
@@ -49,6 +50,6 @@ class _SplashScreenState extends State<SplashScreen> {
         value: const SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
         ),
-        child: Image.asset(ImageConstants.splashScreen));
+        child: Image.asset(ImageConstants.splashScreen, fit: BoxFit.cover,));
   }
 }

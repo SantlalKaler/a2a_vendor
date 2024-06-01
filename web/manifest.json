@@ -1,6 +1,6 @@
 {
-    "name": "t2p_vendor",
-    "short_name": "t2p_vendor",
+    "name": "A2A Vendor",
+    "short_name": "A2A Vendor",
     "start_url": ".",
     "display": "standalone",
     "background_color": "#0175C2",

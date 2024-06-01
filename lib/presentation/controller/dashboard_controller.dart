@@ -4,13 +4,13 @@ import '../constants/image_constants.dart';
 class DashboardController extends GetxController {
   List<DashboardItem> vendorDashboardItems = [
     DashboardItem(
-        "My Profile", ImageConstants.category7, DashboardItemId.myProfile),
+        "My Profile", ImageConstants.myProfile, DashboardItemId.myProfile),
     DashboardItem(
-        "My Orders", ImageConstants.category4, DashboardItemId.myOrders),
+        "My Orders", ImageConstants.myOrder, DashboardItemId.myOrders),
     DashboardItem(
         "My Products", ImageConstants.myProduct, DashboardItemId.myProducts),
     DashboardItem(
-        "About T2P", ImageConstants.aboutUs, DashboardItemId.about),
+        "About Us", ImageConstants.aboutUs, DashboardItemId.about),
   ];
 }
 

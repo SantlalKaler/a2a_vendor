@@ -12,9 +12,9 @@
 
 
     <application
-        android:label="T2P Vendor"
+        android:label="A2A Vendor"
         android:name="${applicationName}"
-        android:icon="@drawable/app_icon_large">
+        android:icon="@drawable/logo">
         <activity
             android:name=".MainActivity"
             android:exported="true"

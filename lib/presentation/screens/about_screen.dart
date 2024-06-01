@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_widget_from_html/flutter_widget_from_html.dart';
 import 'package:get/get.dart';
-import 'package:t2p_vendor/presentation/controller/setting_controller.dart';
-import 'package:t2p_vendor/presentation/widgets/app_container.dart';
-import 'package:t2p_vendor/presentation/widgets/circular_loadings.dart';
+import 'package:a2a_vendor/presentation/controller/setting_controller.dart';
+import 'package:a2a_vendor/presentation/widgets/app_container.dart';
+import 'package:a2a_vendor/presentation/widgets/circular_loadings.dart';
 
 class AboutScreen extends StatefulWidget {
   const AboutScreen({super.key});

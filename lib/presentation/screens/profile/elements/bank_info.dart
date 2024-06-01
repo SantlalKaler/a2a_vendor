@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:t2p_vendor/presentation/controller/profile_controller.dart';
+import 'package:a2a_vendor/presentation/controller/profile_controller.dart';
 
 import '../../../constants/dimens_constants.dart';
 import '../../../widgets/app_container.dart';

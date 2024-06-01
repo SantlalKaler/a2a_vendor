@@ -1,11 +1,14 @@
+import 'package:a2a_vendor/presentation/routes/routes_constants.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:t2p_vendor/data/app_urls.dart';
-import 'package:t2p_vendor/domain/model/shop.dart';
-import 'package:t2p_vendor/presentation/controller/user_controller.dart';
-import 'package:t2p_vendor/presentation/screens/dashboard/dashboard.dart';
+import 'package:a2a_vendor/data/app_urls.dart';
+import 'package:a2a_vendor/domain/model/shop.dart';
+import 'package:a2a_vendor/presentation/controller/user_controller.dart';
+import 'package:a2a_vendor/presentation/screens/dashboard/dashboard.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../data/api_services.dart';
+import '../constants/constants.dart';
 
 class AuthController extends GetxController {
   RxBool isOTPSent = false.obs;
@@ -32,13 +35,14 @@ class AuthController extends GetxController {
 
       if (response != null && response.data['status'] == 'success') {
         isOTPSent.value = true;
+        printValue(response.data);
       }
     } finally {
       setLoading();
     }
   }
 
-  Future verifyOtp() async {
+  Future verifyOtp(BuildContext context) async {
     try {
       setLoading();
       var response = await apiService.post(AppUrls.shopVerifyOtp, {
@@ -51,13 +55,12 @@ class AuthController extends GetxController {
         // save user
         userController.saveShop(Shop.fromJson(response.data['data']));
         // move to dashboard
-        Get.offAll(() {
-          return const DashboardScreen();
-        });
+        if (context.mounted) {
+          context.pushReplacement(RoutesConstants.dashboardScreen);
+        }
       }
     } finally {
       setLoading();
     }
   }
-
 }

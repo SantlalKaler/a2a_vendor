@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:t2p_vendor/domain/model/ProductListResponse.dart';
-import 'package:t2p_vendor/presentation/constants/dimens_constants.dart';
-import 'package:t2p_vendor/presentation/controller/product_controller.dart';
-import 'package:t2p_vendor/presentation/widgets/app_container.dart';
-import 'package:t2p_vendor/presentation/widgets/circular_loadings.dart';
+import 'package:a2a_vendor/domain/model/ProductListResponse.dart';
+import 'package:a2a_vendor/presentation/constants/dimens_constants.dart';
+import 'package:a2a_vendor/presentation/controller/product_controller.dart';
+import 'package:a2a_vendor/presentation/widgets/app_container.dart';
+import 'package:a2a_vendor/presentation/widgets/circular_loadings.dart';
 
 import '../../widgets/app_no_data_found.dart';
 import '../order/components/single_order_info_item.dart';
@@ -40,8 +40,11 @@ class _MyProductScreenState extends State<MyProductScreen> {
       floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add_circle),
           onPressed: () {
-        Get.to(() => const AddEditProductScreen());
-      }),
+            Get.to(() {
+              productController.selectedProduct = null;
+              const AddEditProductScreen();
+            });
+          }),
       body: GetBuilder(
         init: ProductController(),
         builder: (controller) {
@@ -130,7 +133,10 @@ class _MyProductScreenState extends State<MyProductScreen> {
                                           border: Border.all(
                                               width: 0.5, color: Colors.grey)),
                                       child: IconButton(
-                                        onPressed: () {},
+                                        onPressed: () {
+                                          controller.selectedProduct = product;
+                                          Get.to(const AddEditProductScreen());
+                                        },
                                         icon: const Icon(
                                           Icons.edit,
                                           color: Colors.green,

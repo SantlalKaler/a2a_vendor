@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
-import 'package:t2p_vendor/presentation/screens/order/components/single_order_info_item.dart';
+import 'package:a2a_vendor/presentation/screens/order/components/single_order_info_item.dart';
 
 import '../../../constants/dimens_constants.dart';
 import '../../../widgets/app_container.dart';
