@@ -1,3 +1,4 @@
+import 'package:a2a_vendor/presentation/routes/routes_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -6,7 +7,9 @@ import 'package:a2a_vendor/presentation/constants/dimens_constants.dart';
 import 'package:a2a_vendor/presentation/controller/product_controller.dart';
 import 'package:a2a_vendor/presentation/widgets/app_container.dart';
 import 'package:a2a_vendor/presentation/widgets/circular_loadings.dart';
+import 'package:go_router/go_router.dart';
 
+import '../../../responsive.dart';
 import '../../widgets/app_no_data_found.dart';
 import '../order/components/single_order_info_item.dart';
 import 'add_edit_product_screen.dart';
@@ -40,10 +43,8 @@ class _MyProductScreenState extends State<MyProductScreen> {
       floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add_circle),
           onPressed: () {
-            Get.to(() {
               productController.selectedProduct = null;
-              const AddEditProductScreen();
-            });
+            context.pushNamed(RoutesConstants.addProductScreen);
           }),
       body: GetBuilder(
         init: ProductController(),
@@ -53,7 +54,11 @@ class _MyProductScreenState extends State<MyProductScreen> {
               : controller.products.isEmpty
                   ? const NoDataFound()
                   : ListView.builder(
-                      padding: EdgeInsets.all(DimensConstants.screePadding),
+                      padding: Responsive.isMobile(context)
+                          ? EdgeInsets.all(DimensConstants.screePadding)
+                          : EdgeInsets.symmetric(
+                          horizontal: DimensConstants.desktopScreePadding,
+                          vertical: DimensConstants.screePadding),
                       itemCount: controller.products.length,
                       itemBuilder: (context, index) {
                         Product product = controller.products[index];
@@ -135,7 +140,7 @@ class _MyProductScreenState extends State<MyProductScreen> {
                                       child: IconButton(
                                         onPressed: () {
                                           controller.selectedProduct = product;
-                                          Get.to(const AddEditProductScreen());
+                                          context.pushNamed(RoutesConstants.addProductScreen);
                                         },
                                         icon: const Icon(
                                           Icons.edit,

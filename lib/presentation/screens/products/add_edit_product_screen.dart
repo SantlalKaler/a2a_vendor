@@ -1,3 +1,4 @@
+import 'package:a2a_vendor/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -9,6 +10,7 @@ import 'package:a2a_vendor/presentation/widgets/circular_loadings.dart';
 import 'package:a2a_vendor/presentation/widgets/custom_snackbar.dart';
 
 import '../../../domain/model/ProductListResponse.dart';
+import '../../widgets/app_button.dart';
 
 class AddEditProductScreen extends StatefulWidget {
   const AddEditProductScreen({super.key});
@@ -32,25 +34,30 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
     ProductController controller = Get.find();
     return Scaffold(
       appBar: AppBar(
-          title: Text("${controller.selectedProduct == null ? "Add": "Edit"} Product"),
+          title: Text(
+              "${controller.selectedProduct == null ? "Add" : "Edit"} Product"),
           leading: IconButton(
               onPressed: () {
                 Get.back();
               },
               icon: const Icon(Icons.arrow_back_ios))),
       bottomSheet: Padding(
-        padding: EdgeInsets.all(DimensConstants.screePadding),
-        child: Obx(() => ElevatedButton(
+        padding: Responsive.isMobile(context)
+            ? EdgeInsets.all(DimensConstants.screePadding)
+            : EdgeInsets.symmetric(
+                horizontal: DimensConstants.desktopScreePadding,
+                vertical: DimensConstants.screePadding),
+        child: Obx(() => AppElevatedButton(
             onPressed: () {
               if (_formKey.currentState!.validate() &&
                   controller.productCategory.text.isNotEmpty &&
                   controller.productSubCategory.text.isNotEmpty) {
-                if(controller.selectedProduct == null){
-                controller.addProduct();
-                }else{
+                if (controller.selectedProduct == null) {
+                  controller.addProduct();
+                } else {
                   controller.updateProduct();
                 }
-              }else{
+              } else {
                 CustomSnackBar.showSnackBar("Fill all details");
               }
             },
@@ -63,7 +70,11 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
           builder: (controller) {
             return SingleChildScrollView(
               child: Padding(
-                padding: EdgeInsets.all(DimensConstants.screePadding),
+                padding: Responsive.isMobile(context)
+                    ? EdgeInsets.all(DimensConstants.screePadding)
+                    : EdgeInsets.symmetric(
+                        horizontal: DimensConstants.desktopScreePadding,
+                        vertical: DimensConstants.screePadding),
                 child: Form(
                   key: _formKey,
                   child: Column(
@@ -117,7 +128,7 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
                       Gap(DimensConstants.spaceBetweenViews),
                       TextFormField(
                         controller: controller.productDescription,
-                        minLines: 2,
+                        minLines: 4,
                         maxLines: 200,
                         validator: (value) {
                           if (value != null && value.isNotEmpty) {

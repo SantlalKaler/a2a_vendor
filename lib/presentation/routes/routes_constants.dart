@@ -5,6 +5,7 @@ class RoutesConstants {
   static String myProfileScreen = 'myProfileScreen';
   static String myOrderScreen = 'myOrderScreen';
   static String myProductScreen = 'myProductScreen';
+  static String addProductScreen = 'addProductScreen';
   static String aboutUsScreen = 'aboutUsScreen';
 
   static String forceUpdateScreen = '/update';

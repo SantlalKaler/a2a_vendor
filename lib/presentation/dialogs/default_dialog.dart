@@ -1,4 +1,6 @@
+import 'package:a2a_vendor/presentation/constants/dimens_constants.dart';
 import 'package:flutter/material.dart';
+import 'package:gap/gap.dart';
 
 class DefaultDialog extends StatefulWidget {
   final Widget? icon;
@@ -34,9 +36,14 @@ class _DefaultDialogState extends State<DefaultDialog> {
         ElevatedButton(
             onPressed: widget.btn1Click, child: Text(widget.btn1Txt ?? "Ok")),
         if (widget.btn2Txt != null)
-          OutlinedButton(
-              onPressed: widget.btn2Click!,
-              child: Text(widget.btn2Txt!)),
+          Column(
+            children: [
+              Gap(DimensConstants.spaceBetweenViews),
+              OutlinedButton(
+                  onPressed: widget.btn2Click!,
+                  child: Text(widget.btn2Txt!)),
+            ],
+          ),
       ],
     );
   }

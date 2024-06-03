@@ -1,18 +1,15 @@
+import 'package:a2a_vendor/presentation/controller/user_controller.dart';
 import 'package:a2a_vendor/presentation/routes/routes_constants.dart';
+import 'package:a2a_vendor/presentation/screens/auth/auth_screen.dart';
+import 'package:a2a_vendor/responsive.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
-import 'package:a2a_vendor/presentation/controller/user_controller.dart';
-import 'package:a2a_vendor/presentation/screens/auth/auth_screen.dart';
-import 'package:a2a_vendor/presentation/screens/profile/edit_profile.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../constants/dimens_constants.dart';
 import '../../controller/dashboard_controller.dart';
 import '../../dialogs/default_dialog.dart';
-import '../about_screen.dart';
-import '../order/order_list.dart';
-import '../products/my_product_screen.dart';
 
 class DashboardScreen extends StatefulWidget {
   const DashboardScreen({super.key});
@@ -83,41 +80,36 @@ class _DashboardScreenState extends State<DashboardScreen>
           child: Container(
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(10), color: Colors.white),
-              // here dashboard items are change according to user type
-              child: GridView.count(
-                crossAxisCount: 2,
-                children: List.generate(
-                    controller.vendorDashboardItems.length,
-                    (index) => SlideTransition(
-                          position: slideAnimations[index],
-                          child: InkWell(
-                            onTap: () {
-                              switch (
-                                  controller.vendorDashboardItems[index].id) {
-                                case DashboardItemId.myProfile:
-                                  context.pushNamed(
-                                      RoutesConstants.myProfileScreen);
-                                case DashboardItemId.myOrders:
-                                  context
-                                      .pushNamed(RoutesConstants.myOrderScreen);
-                                case DashboardItemId.myProducts:
-                                  context.pushNamed(
-                                      RoutesConstants.myProductScreen);
-                                case DashboardItemId.about:
-                                  context
-                                      .pushNamed(RoutesConstants.aboutUsScreen);
-                              }
-                            },
-                            child: singleGridItem(
-                                controller.vendorDashboardItems[index]),
-                          ),
-                        )),
+              child: GridView.builder(
+                itemCount: controller.vendorDashboardItems.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  childAspectRatio: Responsive.isMobile(context) ? 1 : 2.5,
+                    crossAxisCount: 2),
+                itemBuilder: (context, index) => SlideTransition(
+                  position: slideAnimations[index],
+                  child: InkWell(
+                    onTap: () {
+                      switch (controller.vendorDashboardItems[index].id) {
+                        case DashboardItemId.myProfile:
+                          context.goNamed(RoutesConstants.myProfileScreen);
+                        case DashboardItemId.myOrders:
+                          context.pushNamed(RoutesConstants.myOrderScreen);
+                        case DashboardItemId.myProducts:
+                          context.pushNamed(RoutesConstants.myProductScreen);
+                        case DashboardItemId.about:
+                          context.pushNamed(RoutesConstants.aboutUsScreen);
+                      }
+                    },
+                    child: singleGridItem(
+                        context, controller.vendorDashboardItems[index]),
+                  ),
+                ),
               )),
         ));
   }
 }
 
-singleGridItem(DashboardItem item) {
+singleGridItem(BuildContext context, DashboardItem item) {
   return SizedBox(
     height: 70,
     child: Column(

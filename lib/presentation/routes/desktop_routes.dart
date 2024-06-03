@@ -1,10 +1,16 @@
 import 'package:a2a_vendor/presentation/routes/routes_constants.dart';
 import 'package:a2a_vendor/presentation/routes/routes_handler.dart';
+import 'package:a2a_vendor/presentation/screens/dashboard/dashboard.dart';
+import 'package:a2a_vendor/presentation/screens/products/add_edit_product_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
+import '../screens/about_screen.dart';
 import '../screens/auth/auth_screen.dart';
+import '../screens/order/order_list.dart';
+import '../screens/products/my_product_screen.dart';
+import '../screens/profile/edit_profile.dart';
 import '../screens/splash_screen.dart';
 
 var desktopRoutes = GoRouter(
@@ -23,6 +29,38 @@ var desktopRoutes = GoRouter(
       redirect: (BuildContext context, GoRouterState state) {
         return redirectToHomeScreenIfLoggedIn(context, state);
       },
+    ),
+    GoRoute(
+        name: RoutesConstants.dashboardScreen,
+        path: RoutesConstants.dashboardScreen,
+        builder: (context, state) => const DashboardScreen(),
+        routes: [
+          GoRoute(
+            path: RoutesConstants.myProfileScreen,
+            name: RoutesConstants.myProfileScreen,
+            builder: (context, state) => const EditProfileScreen(),
+          ),
+          GoRoute(
+            path: RoutesConstants.myOrderScreen,
+            name: RoutesConstants.myOrderScreen,
+            builder: (context, state) => const OrderList(),
+          ),
+          GoRoute(
+            path: RoutesConstants.myProductScreen,
+            name: RoutesConstants.myProductScreen,
+            builder: (context, state) => const MyProductScreen(),
+          ),
+          GoRoute(
+            path: RoutesConstants.addProductScreen,
+            name: RoutesConstants.addProductScreen,
+            builder: (context, state) => const AddEditProductScreen(),
+          ),
+          GoRoute(
+            path: RoutesConstants.aboutUsScreen,
+            name: RoutesConstants.aboutUsScreen,
+            builder: (context, state) => const AboutScreen(),
+          ),
+        ]
     ),
   ],
 );

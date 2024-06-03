@@ -21,5 +21,20 @@
         }
       }
     }
+  },
+  "hosting": {
+    "public": "build/web",
+    "site": "a2avendor",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ]
   }
 }

@@ -11,6 +11,7 @@ import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 import '../screens/auth/auth_screen.dart';
+import '../screens/products/add_edit_product_screen.dart';
 import '../screens/splash_screen.dart';
 
 var mobileRoutes = GoRouter(
@@ -49,6 +50,11 @@ var mobileRoutes = GoRouter(
             path: RoutesConstants.myProductScreen,
             name: RoutesConstants.myProductScreen,
             builder: (context, state) => const MyProductScreen(),
+          ),
+          GoRoute(
+            path: RoutesConstants.addProductScreen,
+            name: RoutesConstants.addProductScreen,
+            builder: (context, state) => const AddEditProductScreen(),
           ),
           GoRoute(
             path: RoutesConstants.aboutUsScreen,

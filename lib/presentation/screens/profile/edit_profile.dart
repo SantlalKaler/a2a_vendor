@@ -1,3 +1,4 @@
+import 'package:a2a_vendor/presentation/widgets/app_button.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -40,7 +41,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                 icon: const Icon(Icons.arrow_back_ios))),
         bottomSheet: Padding(
           padding: EdgeInsets.all(DimensConstants.screePadding),
-          child: Obx(() => ElevatedButton(
+          child: Obx(() => AppElevatedButton(
               onPressed: () {
                 controller.updateShop();
               },

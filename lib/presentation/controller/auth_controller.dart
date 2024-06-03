@@ -1,10 +1,10 @@
-import 'package:a2a_vendor/presentation/routes/routes_constants.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:get/get.dart';
 import 'package:a2a_vendor/data/app_urls.dart';
 import 'package:a2a_vendor/domain/model/shop.dart';
 import 'package:a2a_vendor/presentation/controller/user_controller.dart';
-import 'package:a2a_vendor/presentation/screens/dashboard/dashboard.dart';
+import 'package:a2a_vendor/presentation/routes/routes_constants.dart';
+import 'package:a2a_vendor/presentation/widgets/custom_snackbar.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:get/get.dart';
 import 'package:go_router/go_router.dart';
 
 import '../../data/api_services.dart';
@@ -36,6 +36,8 @@ class AuthController extends GetxController {
       if (response != null && response.data['status'] == 'success') {
         isOTPSent.value = true;
         printValue(response.data);
+      }else{
+        CustomSnackBar.showSnackBar(response?.data['message']);
       }
     } finally {
       setLoading();
