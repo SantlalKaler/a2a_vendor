@@ -23,6 +23,7 @@ dependencies:
   connectivity_plus: ^5.0.2
   pretty_dio_logger: ^1.2.0-beta-1
   dio: ^5.4.0
+  share_plus: ^9.0.0
   firebase_core: ^2.30.0
   flutter_widget_from_html: ^0.14.11
   firebase_crashlytics: ^3.3.1

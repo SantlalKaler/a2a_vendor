@@ -2,6 +2,7 @@ import 'package:a2a_vendor/presentation/controller/user_controller.dart';
 import 'package:a2a_vendor/presentation/routes/routes_constants.dart';
 import 'package:a2a_vendor/presentation/screens/auth/auth_screen.dart';
 import 'package:a2a_vendor/responsive.dart';
+import 'package:share_plus/share_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
 import 'package:get/get.dart';
@@ -32,10 +33,11 @@ class _DashboardScreenState extends State<DashboardScreen>
         AnimationController(vsync: this, duration: const Duration(seconds: 1));
     slideAnimations = List.generate(
         itemLength,
-        (index) => Tween(begin: const Offset(-2, 0), end: Offset.zero).animate(
-            CurvedAnimation(
-                parent: animationController,
-                curve: Interval(index * (1 / itemLength), 1))));
+            (index) =>
+            Tween(begin: const Offset(-2, 0), end: Offset.zero).animate(
+                CurvedAnimation(
+                    parent: animationController,
+                    curve: Interval(index * (1 / itemLength), 1))));
 
     animationController.forward();
     super.initState();
@@ -83,27 +85,38 @@ class _DashboardScreenState extends State<DashboardScreen>
               child: GridView.builder(
                 itemCount: controller.vendorDashboardItems.length,
                 gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                  childAspectRatio: Responsive.isMobile(context) ? 1 : 2.5,
+                    childAspectRatio: Responsive.isMobile(context) ? 1 : 2.5,
                     crossAxisCount: 2),
-                itemBuilder: (context, index) => SlideTransition(
-                  position: slideAnimations[index],
-                  child: InkWell(
-                    onTap: () {
-                      switch (controller.vendorDashboardItems[index].id) {
-                        case DashboardItemId.myProfile:
-                          context.goNamed(RoutesConstants.myProfileScreen);
-                        case DashboardItemId.myOrders:
-                          context.pushNamed(RoutesConstants.myOrderScreen);
-                        case DashboardItemId.myProducts:
-                          context.pushNamed(RoutesConstants.myProductScreen);
-                        case DashboardItemId.about:
-                          context.pushNamed(RoutesConstants.aboutUsScreen);
-                      }
-                    },
-                    child: singleGridItem(
-                        context, controller.vendorDashboardItems[index]),
-                  ),
-                ),
+                itemBuilder: (context, index) =>
+                    SlideTransition(
+                      position: slideAnimations[index],
+                      child: InkWell(
+                        onTap: () {
+                          switch (controller.vendorDashboardItems[index].id) {
+                            case DashboardItemId.myProfile:
+                              context.goNamed(RoutesConstants.myProfileScreen);
+                              break;
+                            case DashboardItemId.myOrders:
+                              context.pushNamed(RoutesConstants.myOrderScreen);
+                              break;
+                            case DashboardItemId.myProducts:
+                              context.pushNamed(
+                                  RoutesConstants.myProductScreen);
+                              break;
+                            case DashboardItemId.share:
+                              Share.share(
+                                  'check out my shop https://a2aindia.com/shop/${userController
+                                      .shop!.id!}');
+                              break;
+                            case DashboardItemId.about:
+                              context.pushNamed(RoutesConstants.aboutUsScreen);
+                              break;
+                          }
+                        },
+                        child: singleGridItem(
+                            context, controller.vendorDashboardItems[index]),
+                      ),
+                    ),
               )),
         ));
   }

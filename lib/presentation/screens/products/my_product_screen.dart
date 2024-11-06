@@ -1,3 +1,4 @@
+import 'package:a2a_vendor/presentation/constants/string_constants.dart';
 import 'package:a2a_vendor/presentation/routes/routes_constants.dart';
 import 'package:flutter/material.dart';
 import 'package:gap/gap.dart';
@@ -43,7 +44,8 @@ class _MyProductScreenState extends State<MyProductScreen> {
       floatingActionButton: FloatingActionButton(
           child: const Icon(Icons.add_circle),
           onPressed: () {
-              productController.selectedProduct = null;
+            productController.clearData();
+            productController.selectedProduct = null;
             context.pushNamed(RoutesConstants.addProductScreen);
           }),
       body: GetBuilder(
@@ -57,8 +59,8 @@ class _MyProductScreenState extends State<MyProductScreen> {
                       padding: Responsive.isMobile(context)
                           ? EdgeInsets.all(DimensConstants.screePadding)
                           : EdgeInsets.symmetric(
-                          horizontal: DimensConstants.desktopScreePadding,
-                          vertical: DimensConstants.screePadding),
+                              horizontal: DimensConstants.desktopScreePadding,
+                              vertical: DimensConstants.screePadding),
                       itemCount: controller.products.length,
                       itemBuilder: (context, index) {
                         Product product = controller.products[index];
@@ -70,18 +72,78 @@ class _MyProductScreenState extends State<MyProductScreen> {
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
+                              if (product.image != null &&
+                                  product.image!.isNotEmpty)
+                                Image.network(
+                                  product.image!,
+                                  height: 100,
+                                  width: 100,
+                                ),
                               SingleOrderInfoItem(
                                   title: "Name : ${product.name}",
                                   height: 5,
                                   width: 5,
                                   color: Colors.red),
                               Gap(DimensConstants.spaceBetweenViews),
-                              SingleOrderInfoItem(
-                                  title: "Weight : ${product.weight}Kg",
-                                  height: 5,
-                                  width: 5,
-                                  color: Colors.red),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SingleOrderInfoItem(
+                                      title: "Weight : ${product.weight}Kg",
+                                      height: 5,
+                                      width: 5,
+                                      color: Colors.red),
+                                  SingleOrderInfoItem(
+                                      title: "Selling Price : ${StringConstants.rupeeSign} ${product.sellingPrice}",
+                                      height: 5,
+                                      width: 5,
+                                      color: Colors.red),
+                                ],
+                              ),
                               Gap(DimensConstants.spaceBetweenViews),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SingleOrderInfoItem(
+                                      title: "Discounted Price : ${StringConstants.rupeeSign} ${product.discountedPrice}",
+                                      height: 5,
+                                      width: 5,
+                                      color: Colors.red),
+                                  SingleOrderInfoItem(
+                                      title: "SKU : ${product.sku}",
+                                      height: 5,
+                                      width: 5,
+                                      color: Colors.red),
+                                ],
+                              ),   Gap(DimensConstants.spaceBetweenViews),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SingleOrderInfoItem(
+                                      title: "Length : ${product.length}",
+                                      height: 5,
+                                      width: 5,
+                                      color: Colors.red),
+                                  SingleOrderInfoItem(
+                                      title: "Height : ${product.height}",
+                                      height: 5,
+                                      width: 5,
+                                      color: Colors.red),
+                                ],
+                              ),
+                              Gap(DimensConstants.spaceBetweenViews),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SingleOrderInfoItem(
+                                      title: "Width : ${product.width}",
+                                      height: 5,
+                                      width: 5,
+                                      color: Colors.red),
+
+                                ],
+                              ),
+                              Gap(DimensConstants.highSpacing),
                               Text(
                                 "${product.description}",
                               ),
@@ -109,7 +171,6 @@ class _MyProductScreenState extends State<MyProductScreen> {
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.center,
                                               children: [
-                                                const Text("InActive"),
                                                 Switch(
                                                     value: product.active == 0
                                                         ? false
@@ -120,7 +181,6 @@ class _MyProductScreenState extends State<MyProductScreen> {
                                                               product.id!,
                                                               value ? 1 : 0);
                                                     }),
-                                                const Text("Active"),
                                               ],
                                             ),
                                           ),
@@ -139,12 +199,37 @@ class _MyProductScreenState extends State<MyProductScreen> {
                                               width: 0.5, color: Colors.grey)),
                                       child: IconButton(
                                         onPressed: () {
+                                          controller.clearData();
                                           controller.selectedProduct = product;
-                                          context.pushNamed(RoutesConstants.addProductScreen);
+                                          context.pushNamed(
+                                              RoutesConstants.addProductScreen);
                                         },
                                         icon: const Icon(
                                           Icons.edit,
                                           color: Colors.green,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Gap(DimensConstants.spaceBetweenViews),
+                                  Expanded(
+                                    flex: 1,
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: DimensConstants
+                                              .spaceBetweenViewsAndSubViews),
+                                      decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(10),
+                                          border: Border.all(
+                                              width: 0.5, color: Colors.grey)),
+                                      child: IconButton(
+                                        onPressed: () {
+
+                                        },
+                                        icon: const Icon(
+                                          Icons.delete,
+                                          color: Colors.red,
                                         ),
                                       ),
                                     ),
@@ -156,6 +241,7 @@ class _MyProductScreenState extends State<MyProductScreen> {
                         );
                       },
                     );
+
         },
       ),
     );

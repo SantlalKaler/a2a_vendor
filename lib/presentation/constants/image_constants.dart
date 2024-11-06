@@ -15,4 +15,5 @@ class ImageConstants{
   static String noDataFound = '${basePath}no-data-found.png';
   static String addPhoto = '${basePath}add_photo.png';
   static String aboutUs = '${basePath}about_us.png';
+  static String share = '${basePath}Share.png';
 }

@@ -5,10 +5,12 @@ class DashboardController extends GetxController {
   List<DashboardItem> vendorDashboardItems = [
     DashboardItem(
         "My Profile", ImageConstants.myProfile, DashboardItemId.myProfile),
-    DashboardItem(
-        "My Orders", ImageConstants.myOrder, DashboardItemId.myOrders),
+    // DashboardItem(
+    //     "My Orders", ImageConstants.myOrder, DashboardItemId.myOrders),
     DashboardItem(
         "My Products", ImageConstants.myProduct, DashboardItemId.myProducts),
+    DashboardItem(
+        "Share Shop", ImageConstants.share, DashboardItemId.share),
     DashboardItem(
         "About Us", ImageConstants.aboutUs, DashboardItemId.about),
   ];
@@ -30,6 +32,7 @@ enum DashboardItemId {
   myProfile,
   myOrders,
   myProducts,
+  share,
   about,
 }
 
