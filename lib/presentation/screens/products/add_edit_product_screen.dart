@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:a2a_vendor/presentation/constants/constants.dart';
 import 'package:a2a_vendor/presentation/constants/dimens_constants.dart';
 import 'package:a2a_vendor/presentation/controller/product_controller.dart';
 import 'package:a2a_vendor/presentation/widgets/circular_loadings.dart';
@@ -29,6 +30,7 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
   @override
   void initState() {
     controller.getCategories();
+    printValue("select product is : ${controller.selectedProduct}");
     super.initState();
   }
 
@@ -82,11 +84,10 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
                   key: _formKey,
                   child: Column(
                     children: [
-                      if ((controller.selectedProduct != null &&
-                                  controller.selectedProduct!.image == null ||
-                              controller.selectedProduct!.image!.isEmpty) ||
-                          (controller.selectedProduct == null &&
-                              controller.uploadImages.isEmpty))
+                      // if ((controller.selectedProduct != null &&
+                      //             controller.selectedProduct!.image == null) ||
+                      //     (controller.selectedProduct == null &&
+                      //         controller.uploadImages.isEmpty))
                         GestureDetector(
                             onTap: () async {
                               if (kIsWeb) {
@@ -96,11 +97,10 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
                               }
                             },
                             child: Image.asset(ImageConstants.addPhoto)),
-                      if ((controller.selectedProduct != null &&
-                          controller.selectedProduct!.image == null ||
-                          controller.selectedProduct!.image!.isEmpty) ||
-                          (controller.selectedProduct == null &&
-                              controller.uploadImages.isEmpty))
+                      // if ((controller.selectedProduct != null &&
+                      //     controller.selectedProduct!.image == null ) ||
+                      //     (controller.selectedProduct == null &&
+                      //         controller.uploadImages.isEmpty))
                         Gap(DimensConstants.highSpacing),
 
                       // new image that user choose from gallery/camera
@@ -112,7 +112,7 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
                           // itemCount: controller.uploadImages.length,
-                          itemCount: 1,
+                          itemCount: controller.uploadImages.length,
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisSpacing:
@@ -122,7 +122,7 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
                                   childAspectRatio: 1,
                                   crossAxisCount: 3),
                           itemBuilder: (context, index) {
-                            var item = controller.uploadImages[0];
+                            var item = controller.uploadImages[index];
                             return Stack(
                               children: [
                                 Container(
@@ -164,7 +164,7 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
                         GridView.builder(
                           shrinkWrap: true,
                           physics: const NeverScrollableScrollPhysics(),
-                          itemCount: 1,
+                          itemCount: controller.selectedProduct!.image!.length,
                           gridDelegate:
                               SliverGridDelegateWithFixedCrossAxisCount(
                                   crossAxisSpacing:
@@ -174,12 +174,28 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
                                   childAspectRatio: 1,
                                   crossAxisCount: 3),
                           itemBuilder: (context, index) {
-                            var item = controller.selectedProduct!.image!;
-                            return Container(
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  image: DecorationImage(
-                                      image: NetworkImage(item))),
+                            var item = controller.selectedProduct!.image![index];
+                            return Stack(
+                              children: [
+                                Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      image: DecorationImage(
+                                          image: NetworkImage(item))),
+                                ),
+                                Positioned(
+                                    top: 0,
+                                    right: 0,
+                                    child: IconButton(
+                                        onPressed: () {
+                                          controller
+                                              .deleteImage(index);
+                                        },
+                                        icon: const Icon(
+                                          Icons.delete,
+                                          color: Colors.redAccent,
+                                        )))
+                              ],
                             );
                           },
                         ),
@@ -389,7 +405,7 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
                 onTap: () async {
                   XFile? file =
                       await imagePicker.pickImage(source: ImageSource.gallery);
-                  Get.back();
+                 // Get.back();
                   if (file != null) {
                     File fileImg = File(file.path);
                     int fileSizeInBytes =
@@ -421,7 +437,7 @@ class _AddEditProductScreenState extends State<AddEditProductScreen> {
 
 Future pickMultipleImagesFromGallery() async {
   ProductController controller = Get.find();
-  List<XFile> images = await ImagePicker().pickMultiImage(imageQuality: 40);
+  List<XFile> images = await ImagePicker().pickMultiImage();
   for (var i = 0; i < images.length; i++) {
     var image = images[i];
 

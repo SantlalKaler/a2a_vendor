@@ -62,8 +62,8 @@ class Product {
       num? active, 
       num? deleted, 
       String? sellingPrice, 
-      String? discountedPrice, 
-      String? image, 
+      String? discountedPrice,
+    List<String>? image,
       String? sku, 
       String? length, 
       String? width, 
@@ -104,7 +104,12 @@ class Product {
     _deleted = json['deleted'];
     _sellingPrice = json['selling_price'];
     _discountedPrice = json['discounted_price'];
-    _image = json['image'];
+    if (json['image'] != null) {
+      _image = [];
+      json['image'].forEach((v) {
+        _image?.add(v);
+      });
+    }
     _sku = json['sku'];
     _length = json['length'];
     _width = json['width'];
@@ -124,7 +129,7 @@ class Product {
   num? _deleted;
   String? _sellingPrice;
   String? _discountedPrice;
-  String? _image;
+  List<String>? _image;
   String? _sku;
   String? _length;
   String? _width;
@@ -143,7 +148,7 @@ Product copyWith({  String? shop,
   num? deleted,
   String? sellingPrice,
   String? discountedPrice,
-  String? image,
+  List<String>?  image,
   String? sku,
   String? length,
   String? width,
@@ -182,7 +187,7 @@ Product copyWith({  String? shop,
   num? get deleted => _deleted;
   String? get sellingPrice => _sellingPrice;
   String? get discountedPrice => _discountedPrice;
-  String? get image => _image;
+  List<String>?  get image => _image;
   String? get sku => _sku;
   String? get length => _length;
   String? get width => _width;
@@ -208,7 +213,9 @@ Product copyWith({  String? shop,
     map['deleted'] = _deleted;
     map['selling_price'] = _sellingPrice;
     map['discounted_price'] = _discountedPrice;
-    map['image'] = _image;
+    if (_image != null) {
+      map['image'] = _image?.map((v) => v).toList();
+    }
     map['sku'] = _sku;
     map['length'] = _length;
     map['width'] = _width;

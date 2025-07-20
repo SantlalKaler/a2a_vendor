@@ -74,11 +74,17 @@ class _MyProductScreenState extends State<MyProductScreen> {
                             children: [
                               if (product.image != null &&
                                   product.image!.isNotEmpty)
-                                Image.network(
-                                  product.image!,
-                                  height: 100,
-                                  width: 100,
+                                Row(
+                                  children: [
+                                    for(var image in product.image!)
+                                      Image.network(
+                                        image,
+                                        height: 100,
+                                        width: 100,
+                                      ),
+                                  ],
                                 ),
+                              Gap(DimensConstants.spaceBetweenViews),
                               SingleOrderInfoItem(
                                   title: "Name : ${product.name}",
                                   height: 5,

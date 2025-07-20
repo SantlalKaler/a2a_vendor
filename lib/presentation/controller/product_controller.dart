@@ -1,14 +1,13 @@
-import 'package:a2a_vendor/presentation/constants/constants.dart';
+import 'package:a2a_vendor/data/status.dart';
+import 'package:a2a_vendor/domain/model/CatSubCatResponse.dart';
+import 'package:a2a_vendor/presentation/controller/user_controller.dart';
+import 'package:a2a_vendor/presentation/widgets/custom_snackbar.dart';
+import 'package:dio/dio.dart' as dio;
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
-import 'package:dio/dio.dart' as dio;
-import 'package:a2a_vendor/data/status.dart';
-import 'package:a2a_vendor/domain/model/CatSubCatResponse.dart';
-import 'package:a2a_vendor/presentation/controller/user_controller.dart';
-import 'package:a2a_vendor/presentation/widgets/custom_snackbar.dart';
 
 import '../../data/api_services.dart';
 import '../../data/app_urls.dart';
@@ -56,6 +55,7 @@ class ProductController extends GetxController {
   }
 
   Future getProducts() async {
+    products.clear();
     try {
       setLoading();
       var data = {"shop": userController.shopId};
@@ -110,21 +110,21 @@ class ProductController extends GetxController {
         "height": height.text,
       });
 
-      // for (var image in uploadImages) {
-      if(uploadImages.isNotEmpty){
-        if (kIsWeb) {
-          data.files.add(MapEntry(
-              "upload",
-              dio.MultipartFile.fromBytes(uploadImages[0].byteImage!,
-                  filename: uploadImages[0].name)));
-        } else {
-          data.files.add(MapEntry(
-              "upload",
-              await dio.MultipartFile.fromFile(uploadImages[0].path,
-                  filename: uploadImages[0].name)));
+      for (var image in uploadImages) {
+        if (uploadImages.isNotEmpty) {
+          if (kIsWeb) {
+            data.files.add(MapEntry(
+                "upload",
+                dio.MultipartFile.fromBytes(image.byteImage!,
+                    filename: image.name)));
+          } else {
+            data.files.add(MapEntry(
+                "upload",
+                await dio.MultipartFile.fromFile(image.path,
+                    filename: image.name)));
+          }
         }
       }
-
 
       var response = await apiService.post(AppUrls.addProduct, data);
 
@@ -158,17 +158,19 @@ class ProductController extends GetxController {
         "height": height.text,
       });
 
-      if(uploadImages.isNotEmpty){
-        if (kIsWeb) {
-          data.files.add(MapEntry(
-              "upload",
-              dio.MultipartFile.fromBytes(uploadImages[0].byteImage!,
-                  filename: uploadImages[0].name)));
-        } else {
-          data.files.add(MapEntry(
-              "upload",
-              await dio.MultipartFile.fromFile(uploadImages[0].path,
-                  filename: uploadImages[0].name)));
+      for (var image in uploadImages) {
+        if (uploadImages.isNotEmpty) {
+          if (kIsWeb) {
+            data.files.add(MapEntry(
+                "upload",
+                dio.MultipartFile.fromBytes(image.byteImage!,
+                    filename: image.name)));
+          } else {
+            data.files.add(MapEntry(
+                "upload",
+                await dio.MultipartFile.fromFile(image.path,
+                    filename: image.name)));
+          }
         }
       }
 
@@ -200,6 +202,23 @@ class ProductController extends GetxController {
         if (selectedProduct != null) {
           setData();
         }
+      }
+    } finally {
+      setLoading();
+      update();
+    }
+  }
+
+  Future deleteImage(int index) async {
+    try {
+      setLoading();
+      var res = await apiService.post(AppUrls.deleteProductImage, {
+        "id": selectedProduct!.id!,
+        "imagePath": selectedProduct!.image![index]
+      });
+
+      if (res != null && res.data['status'] == Status.success.name) {
+        selectedProduct!.image!.removeAt(index);
       }
     } finally {
       setLoading();

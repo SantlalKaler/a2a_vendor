@@ -16,6 +16,7 @@ class AppUrls {
   static String updateProductStatus = "admin/update-shop-product-status";
   static String addProduct = "admin/add-shop-product";
   static String updateProduct = "admin/update-shop-product";
+  static String deleteProductImage = "admin/delete-shop-product-image";
   static String category = "app/gharkakhana-category";
   static String subCategory = "app/gharkakhana-subcategory";
 }
